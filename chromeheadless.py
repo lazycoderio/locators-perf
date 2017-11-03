@@ -16,7 +16,10 @@ from locator import getting_data
 
 def __main__():
     for _ in range(10000):
-        d = webdriver.Chrome()
+        options = webdriver.ChromeOptions()
+        options.add_argument('--headless')
+        options.add_argument('--window-size=1200x600')
+        d = webdriver.Chrome(chrome_options=options)
         l = getting_data()
         l.run(d, by=By.XPATH, locator='//table[@id="large-table"]')
         l.run(d, by=By.PARTIAL_LINK_TEXT, locator='Elemental')

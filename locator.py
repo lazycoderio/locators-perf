@@ -31,12 +31,16 @@ def call(driver, by, locator):
     driver.find_element(by, locator)
 
 class getting_data():
+    def __init__(self):
+        self.es = None
+        while self.es is None:
+            self.es = Elasticsearch('http://es.lazycoder.io:80')
     def get_ua(self, driver):
         return parse(driver.execute_script("return navigator.userAgent"))
 
 
     def post_es(self, locator, ua, stats, driver):
-        es = Elasticsearch('http://es.lazycoder.io:80')
+
         index = 'browser-' + str(datetime.now().strftime("%Y-%m-%d-%H"))
         doc_type = "browser_locator"
         user_agent = self.to_dict(ua)
@@ -49,7 +53,7 @@ class getting_data():
             body["driver_type"]  = 'remote'
         else:
             body["driver_type"] = 'local'
-        es.index(index, doc_type, body)
+        self.es.index(index, doc_type, body)
 
 
     def to_dict(self, ua):
@@ -83,11 +87,11 @@ class getting_data():
             bl = {}
             bl["By"] = by
             bl["Locator"] = locator
-            for _ in range(1000):
+            for _ in range(30):
                 stats = call(d, by, locator)
                 ua = self.get_ua(d)
                 self.post_es(bl, ua, stats, d)
-            d.quit()
+
         except Exception as e:
             print(e)
 

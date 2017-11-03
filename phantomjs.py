@@ -16,9 +16,9 @@ from locator import getting_data
 
 def __main__():
     for _ in range(10000):
-        d = webdriver.Chrome()
+        d = webdriver.PhantomJS()
         l = getting_data()
-        l.run(d, by=By.XPATH, locator='//table[@id="large-table"]')
+        l.run(d, by = By.XPATH, locator = '//table[@id="large-table"]')
         l.run(d, by=By.PARTIAL_LINK_TEXT, locator='Elemental')
         l.run(d, by=By.LINK_TEXT, locator='Elemental Selenium')
         l.run(d, by=By.ID, locator='large-table')
