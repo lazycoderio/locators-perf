@@ -83,9 +83,10 @@ class getting_data():
             bl = {}
             bl["By"] = by
             bl["Locator"] = locator
-            stats = call(d, by, locator)
-            ua = self.get_ua(d)
-            self.post_es(bl, ua, stats, d)
+            for _ in range(1000):
+                stats = call(d, by, locator)
+                ua = self.get_ua(d)
+                self.post_es(bl, ua, stats, d)
             d.quit()
         except Exception as e:
             print(e)
