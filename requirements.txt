@@ -1,5 +1,5 @@
 certifi==2017.7.27.1
-elasticsearch==5.4.0
+elasticsearch==6.1.1
 PyYAML==3.12
 selenium==3.6.0
 ua-parser==0.7.3
