@@ -1,4 +1,4 @@
-certifi==2017.7.27.1
+certifi==2018.8.13
 elasticsearch==5.4.0
 PyYAML==3.12
 selenium==3.6.0
